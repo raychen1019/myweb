@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>猜數字小遊戲</title>
+    <!-- 引入外部 CSS 樣式表 -->
+    <Style>
+        /* ===== Game頁專用導覽列 ===== */
+body{
+    background-color: #f8f9fa;
+}
+    
+
+header{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+nav{
+    background:#111;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 5%;
+}
+
+.nav-brand-title{
+    color:white;
+    font-size:24px;
+    margin:0;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+}
+
+nav li{
+    position:relative;
+    margin-left:20px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+}
+
+.dropdown-menu{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    background:#111;
+    min-width:180px;
+    padding:10px 0;
+}
+
+.dropdown:hover .dropdown-menu{
+    display:block;
+}
+
+.dropdown-menu li{
+    margin:0;
+}
+
+.dropdown-menu a{
+    display:block;
+    padding:10px 15px;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding-top:80px;
+}
+    </Style>
+        <link href="https://jsdelivr.net" rel="stylesheet">
+</head>
+<body>
+<header>
+    <nav>
+        <h1 class="nav-brand-title">漲價屋</h1>
+        <ul>
+            <li><a href="index.html">首頁</a></li>
+            <li><a href="about.html">關於我們</a></li>
+            
+            <!-- 🚀 改造這裏：加上 dropdown 類別 -->
+            <li class="dropdown">
+                <a href="products.html">商品總覽 ▼</a>
+                <!-- 子網頁選單開始 -->
+                <ul class="dropdown-menu">
+                    <li><a href="productA.html">AI 智慧設備</a></li>
+                    <li><a href="productB.html">電競頂級硬體</a></li>
+                    <li><a href="productC.html">本月特惠專區</a></li>
+                </ul>
+                <!-- 子網頁選單結束 -->
+            </li>
+    
+            <li><a href="hot.html">熱銷商品</a></li>
+                    <li><a href="other.html">其他服務</a></li>
+            <li><a href="news.html">最新消息</a></li>
+            <li><a href="game.html">小遊戲</a></li>
+            <li><a href="service.html">客服中心</a></li>
+            <li><a href="contact.html">聯絡我們</a></li>
+        </ul>
+    </nav>
+    
+    </header>
+    <div class="game-container">
+        <h1>猜數字小遊戲</h1>
+        <p class="description">請輸入 1 到 100 之間的數字，看你幾次能猜中！</p>
+        
+        <div class="input-area">
+            <input type="number" id="guessInput" min="1" max="100" placeholder="輸入數字...">
+            <button id="submitBtn">提交答案</button>
+        </div>
+
+        <!-- 顯示遊戲提示訊息與猜測次數 -->
+        <p id="message" class="message"></p>
+        <p id="turns" class="turns">目前猜測次數：0 次</p>
+
+        <button id="restartBtn" class="hidden">重新開始</button>
+    </div>
+
+    <!-- 引入外部 JavaScript 邏輯 -->
+    <script>// 1. 宣告遊戲狀態變數
+        let answerNumber;
+        let attemptsCount;
+        const minNum = 1;
+        const maxNum = 100;
+        
+        // 2. 獲取 DOM 網頁元素
+        const guessInput = document.getElementById('guessInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const message = document.getElementById('message');
+        const turnsText = document.getElementById('turns');
+        const restartBtn = document.getElementById('restartBtn');
+        
+        // 3. 初始化遊戲函式
+        function initGame() {
+            // 隨機產生 1 ~ 100 的整數
+            answerNumber = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
+            attemptsCount = 0;
+            
+            // 重設介面文字與狀態（優化：改為高亮螢光黃與發光特效）
+            message.textContent = '⚡ 準備好了，請輸入數字開始猜！ ⚡';
+            message.style.color = '#fff200';
+            message.style.textShadow = '0 0 10px rgba(255, 242, 0, 0.8), 0 0 20px rgba(255, 242, 0, 0.4)';
+            
+            turnsText.textContent = `目前猜測次數：${attemptsCount} 次`;
+            
+            guessInput.value = '';
+            guessInput.disabled = false;
+            submitBtn.disabled = false;
+            restartBtn.classList.add('hidden'); // 隱藏重新開始按鈕
+        }
+        
+        // 4. 檢查玩家猜測的邏輯
+        function checkGuess() {
+            const userGuess = parseInt(guessInput.value);
+        
+            // 防呆機制：檢查輸入是否有效（優化：改為電競螢光紅與發光特效）
+            if (isNaN(userGuess) || userGuess < minNum || userGuess > maxNum) {
+                message.textContent = `❌ 請輸入有效的 ${minNum} 到 ${maxNum} 之間的數字！`;
+                message.style.color = '#ff3838';
+                message.style.textShadow = '0 0 15px #ff3838';
+                return;
+            }
+        
+            // 猜測次數加 1
+            attemptsCount++;
+            turnsText.textContent = `目前猜測次數：${attemptsCount} 次`;
+        
+            // 核心對照邏輯
+            if (userGuess === answerNumber) {
+                // 猜對：優化為電競螢光綠與強發光
+                message.textContent = `🎉 恭喜你！猜對了！答案就是 ${answerNumber}`;
+                message.style.color = '#00ff66';
+                message.style.textShadow = '0 0 15px #00ff66, 0 0 25px #00ff66';
+                endGame();
+            } else if (userGuess < answerNumber) {
+                // 太小：優化為警告螢光橘與發光
+                message.textContent = '📉 太小了！再大一點！';
+                message.style.color = '#ff9f43';
+                message.style.textShadow = '0 0 15px #ff9f43';
+            } else {
+                // 太大：優化為警告螢光橘與發光
+                message.textContent = '📈 太大了！再小一點！';
+                message.style.color = '#ff9f43';
+                message.style.textShadow = '0 0 15px #ff9f43';
+            }
+        
+            // 檢查完後清空輸入框，方便下一次輸入
+            guessInput.value = '';
+            guessInput.focus();
+        }
+        
+        // 5. 遊戲結束處理
+        function endGame() {
+            guessInput.disabled = true;
+            submitBtn.disabled = true;
+            restartBtn.classList.remove('hidden'); // 顯示重新開始按鈕
+        }
+        
+        // 6. 綁定按鈕點擊與鍵盤事件
+        submitBtn.addEventListener('click', checkGuess);
+        
+        // 讓玩家可以直接按「Enter 鍵」送出答案
+        guessInput.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                checkGuess();
+            }
+        });
+        
+        restartBtn.addEventListener('click', initGame);
+        
+        // 7. 網頁載入時自動執行初始化
+        initGame();
+        </script>
+            <script src="https://jsdelivr.net"></script>
+
+</body>
+</html>

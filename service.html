@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>service</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://jsdelivr.net" rel="stylesheet">
+</head>
+<body>
+<header>
+<nav>
+    <h1 class="nav-brand-title">漲價屋</h1>
+    <ul>
+        <li><a href="index.html">首頁</a></li>
+        <li><a href="about.html">關於我們</a></li>
+        
+        <!-- 🚀 改造這裏：加上 dropdown 類別 -->
+        <li class="dropdown">
+            <a href="products.html">商品總覽 ▼</a>
+            <!-- 子網頁選單開始 -->
+            <ul class="dropdown-menu">
+                <li><a href="productA.html">AI 智慧設備</a></li>
+                <li><a href="productB.html">電競頂級硬體</a></li>
+                <li><a href="productC.html">本月特惠專區</a></li>
+            </ul>
+            <!-- 子網頁選單結束 -->
+        </li>
+
+        <li><a href="hot.html">熱銷商品</a></li>
+                <li><a href="other.html">其他服務</a></li>
+        <li><a href="news.html">最新消息</a></li>
+        <li><a href="game.html">小遊戲</a></li>
+        <li><a href="service.html">客服中心</a></li>
+        <li><a href="contact.html">聯絡我們</a></li>
+    </ul>
+</nav>
+
+</header> 
+<section class="container">
+    <!-- 客服表單卡片 -->
+    <div class="card service-card">
+        <h2>📩 聯絡線上客服</h2>
+        <p class="service-subtitle">請填寫下方欄位，系統將即時為您建立服務工單。</p>
+
+        <form id="feedbackForm">
+            <!-- 💡 加上了 id 方便 JavaScript 抓取數值 -->
+            <div class="input-group">
+                <input type="text" id="userName" placeholder="您的姓名" required>
+            </div>
+            <div class="input-group">
+                <input type="email" id="userEmail" placeholder="電子郵件 Email" required>
+            </div>
+            <div class="input-group">
+                <textarea id="userMsg" rows="5" placeholder="請輸入您遇到的問題或反饋內容..." required></textarea>
+            </div>
+
+            <button type="button" class="btn-submit" onclick="sendMessage()">
+                🚀 發送服務工單
+            </button>
+        </form>
+    </div>
+
+    <!-- 🚀 內文下方：新增即時顯示訊息的區塊 -->
+    <div id="messageLogSection" class="card log-card" style="display: none;">
+        <h3>📋 已提交的服務工單</h3>
+        <div id="messageContainer">
+            <!-- JavaScript 會把內容塞在這裡 -->
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 漲價屋 All Rights Reserved
+</footer>
+<script src="script.js"></script>
+<script src="https://jsdelivr.net"></script>
+
+</body>
+</html>
