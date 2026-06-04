@@ -1,0 +1,377 @@
+/* --- 基礎設定 --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* 移除全域文字顏色強制設定，改在 body 統一管理 */
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, "Noto Sans TC", sans-serif;
+    background-color: #f8f9fa; /* 淺灰色背景，讓白色卡片更立體 */
+    color: #333333;           /* 統一主內文顏色 */
+    line-height: 1.6;
+}
+
+nav {
+    background: #111111;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    flex-wrap: wrap; /* 💡 關鍵：寬度不夠時自動換行，防止字體被擠出螢幕 */
+}
+
+/* 🚀 修正大標：確保文字顯現並給予獨立顏色 */
+.nav-brand-title, nav h1 {
+    color: #ffffff !important; /* 強制純白 */
+    font-size: 24px;
+    font-weight: 800;
+    margin: 0;
+    white-space: nowrap;      /* 防止店名被強制斷行 */
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap; /* 導覽項目太長時也會自動排好 */
+}
+
+nav li {
+    margin-left: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+
+/* --- 大型橫幅 (Banner) --- */
+.banner {
+    height: 400px;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/banner.jpg') center/cover; 
+    /* 💡 加上黑色半透明遮罩，確保 Banner 上的白字在任何背景圖下都清晰 */
+    display: flex;
+    flex-direction: column; /* 支援雙行標題排版 */
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.banner h2 {
+    font-size: 42px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.banner p {
+    font-size: 20px;
+    opacity: 0.9;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+/* --- 內文容器與卡片 (Container & Cards) --- */
+.container {
+    width: 85%;
+    max-width: 1200px; /* 限制最大寬度，在大螢幕上不會過度拉伸 */
+    margin: auto;
+    padding: 50px 0;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); /* 柔和的現代感陰影 */
+    border-left: 5px solid #111111; /* 左側加入質感邊框裝飾 */
+}
+
+.card h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #111111;
+}
+
+.card p {
+    color: #666666;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* --- 按鈕與連結 (Buttons & Links) --- */
+button, .btn-secondary {
+    display: inline-block;
+    background: #111111;
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+button:hover, .btn-secondary:hover {
+    background: #444444;
+    transform: translateY(-2px); /* 滑鼠懸停時微幅飄起 */
+}
+
+.btn-secondary {
+    background: #e0e0e0;
+    color: #333333;
+    margin-top: 10px;
+}
+
+.btn-secondary:hover {
+    background: #d0d0d0;
+}
+
+/* --- 頁尾 (Footer) --- */
+footer {
+    color: #888888;
+    text-align: center;
+    padding: 30px;
+    margin-top: 60px;
+    font-size: 14px;
+    border-top: 1px solid #eeeeee;
+}
+/* --- 現代感 CSS 跑馬燈 --- */
+.marquee-container {
+    background: #3f3f3f;       /* 醒目的科技紅底色（可依喜好改為 #111 或其他顏色） */
+    overflow: hidden;          /* 隱藏超出螢幕範圍的文字 */
+    white-space: nowrap;       /* 強制文字不換行 */
+    padding: 10px 0;           /* 上下留白間距 */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.marquee-content {
+    display: inline-block;
+    color: #ffffff;            /* 文字顏色為純白 */
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding-left: 100%;        /* 讓文字從螢幕最右側外面開始進場 */
+    animation: marquee-move 20s linear infinite; /* 20秒跑完一輪，無限循環 */
+}
+
+/* 懸停時暫停動畫，方便使用者閱讀 */
+.marquee-container:hover .marquee-content {
+    animation-play-state: paused;
+}
+
+/* 🚀 定義跑馬燈滾動動畫 */
+@keyframes marquee-move {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-100%, 0, 0); /* 往左完全滑出螢幕 */
+    }
+}
+
+/* --- 訪客計數器樣式 --- */
+.visitor-counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px; /* 文字與數字的間距 */
+    margin-bottom: 15px;
+    font-size: 15px;
+    color: #888888;
+}
+
+/* 讓產出的計數器數字圖片帶有綠色科技發光感 */
+.visitor-counter img {
+    height: 28px;
+    filter: drop-shadow(0 0 5px #39ff14) hue-rotate(90deg); 
+    vertical-align: middle;
+}
+/* --- 下拉選單基礎設定 --- */
+nav li {
+    margin-left: 20px;
+    position: relative; /* 💡 關鍵：作為子選單定位的基準點 */
+}
+
+/* 隱藏下拉選單 */
+.dropdown-menu {
+    display: none;             /* 平時隱藏 */
+    position: absolute;        /* 絕對定位，不影響主導覽列高度 */
+    top: 100%;                 /* 出現在主導覽列的正下方 */
+    left: 0;
+    background-color: #111111; /* 與導覽列同色 */
+    min-width: 160px;          /* 設定選單寬度 */
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    padding: 10px 0;
+    border-radius: 0 0 8px 8px;/* 下方圓角 */
+    z-index: 1000;             /* 確保選單疊在跑馬燈和 Banner 上方 */
+}
+
+/* 調整子選單裡面的項目排版 */
+.dropdown-menu li {
+    margin: 0;                 /* 清除原本的左邊距 */
+    width: 100%;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px 20px;        /* 增加點擊範圍 */
+    color: #cccccc;
+    font-size: 14px;
+    white-space: nowrap;       /* 防止子分頁名稱斷行 */
+    transition: background 0.2s, color 0.2s;
+}
+
+/* 🚀 關鍵動作：當滑鼠移入 .dropdown 時，顯示子選單 */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* 滑鼠移到子分頁選項時的發光效果 */
+.dropdown-menu a:hover {
+    background-color: #222222; /* 稍微變亮 */
+    color: #ffffff;            /* 文字變純白 */
+}
+/* --- 商品網格與圖片大小控制（放大版） --- */
+
+/* 1. 調整網格，讓卡片最低寬度變大（螢幕不夠寬時會自動變成一排兩件或一件） */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
+    gap: 40px; /* 增加大卡片之間的間距，看起來更有質感 */
+    width: 100%;
+}
+
+/* 2. 限制商品卡片內圖片的大小（放大版） 🚀 */
+.card.product img {
+    width: 100%;          
+    max-width: 320px;     /* 💡 從 200px 放大到 320px */
+    height: 300px;        /* 💡 從 200px 高度拉高到 300px */
+    object-fit: contain;  /* 保持圖片比例不變形 */
+    display: block;
+    margin: 0 auto 20px auto; /* 圖片置中，與下方文字拉開距離 */
+}
+
+/* 3. 對齊卡片內文字與按鈕（同步放大） */
+.card.product {
+    text-align: center;   
+    padding: 35px;        /* 增加卡片內邊距 */
+}
+
+.card.product h3 {
+    font-size: 24px;      /* 💡 放大商品名稱字體 */
+    margin-bottom: 12px;
+    color: #111111;
+}
+
+.card.product p {
+    font-size: 20px;      /* 💡 放大價格字體 */
+    font-weight: bold;
+    color: #ff3b30;       
+    margin-bottom: 20px;
+}
+
+/* 4. 讓放大後的按鈕點擊範圍更大 */
+.card.product button {
+    padding: 14px 40px;   /* 💡 讓按鈕變寬變高，更好點擊 */
+    font-size: 16px;
+}
+/* --- 客服表單美化樣式 --- */
+.service-card {
+    max-width: 600px;
+    margin: 0 auto 30px auto; /* 居中且與下方留白 */
+    padding: 40px !important;
+}
+
+.service-subtitle {
+    color: #666666;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* 輸入框容器 */
+.input-group {
+    margin-bottom: 20px;
+}
+
+/* 統一美化文字輸入框與文字區塊 */
+.service-card input[type="text"],
+.service-card input[type="email"],
+.service-card textarea {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 15px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    color: #333333;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+/* 輸入框聚焦時的科技感邊框與微發光 */
+.service-card input:focus,
+.service-card textarea:focus {
+    border-color: #111111;
+    background-color: #ffffff;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 調整送出按鈕寬度 */
+.btn-submit {
+    width: 100%;
+    padding: 14px !important;
+    font-size: 16px !important;
+    border-radius: 8px !important;
+}
+
+/* --- 下方即時顯示紀錄卡片 --- */
+.log-card {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px !important;
+    border-left: 5px solid #ff3b30 !important; /* 改用紅色代表急件工單 */
+    animation: fadeIn 0.5s ease;
+}
+
+.log-card h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #111111;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 10px;
+}
+
+/* 單條對話紀錄框 */
+.msg-box {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.msg-box strong {
+    color: #111111;
+}
+
+.msg-box .time-stamp {
+    font-size: 12px;
+    color: #999999;
+    display: block;
+    margin-top: 8px;
+}
+
+/* 動態登場特效 */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
